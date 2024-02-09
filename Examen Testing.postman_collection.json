@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "fb01be12-3f3b-47a8-8baf-94c04c18ec59",
+		"name": "Examen Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6104479",
+		"_collection_link": "https://www.postman.com/salesianostriana/workspace/curso-23-24/collection/6104479-fb01be12-3f3b-47a8-8baf-94c04c18ec59?action=share&source=collection_link&creator=6104479"
+	},
+	"item": [
+		{
+			"name": "Con Autenticación",
+			"item": [
+				{
+					"name": "POST Nuevo dato",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ciudad\": \"Úbeda\",\n    \"fecha\": \"06/02/2024\",\n    \"precipitacion\": 0.1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/meteo/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"meteo",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Editar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ciudad\": \"Úbeda\",\n    \"fecha\": \"06/02/2024\",\n    \"precipitacion\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/meteo/edit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"meteo",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Sin Autenticación",
+			"item": [
+				{
+					"name": "Usuarios",
+					"item": [
+						{
+							"name": "POST Login Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"pm.collectionVariables.set(\"token\", jsonData.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Login User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"pm.collectionVariables.set(\"token\", jsonData.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"user\",\n    \"password\": \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"user\",\n    \"password\": \"1234\",\n    \"email\": \"user@user.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "GET Todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/meteo/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"meteo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET media mensual",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/meteo/media/mes/sevilla",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"meteo",
+						"media",
+						"mes",
+						"sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET media día semana",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/meteo/media/semana/sevilla",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"meteo",
+						"media",
+						"semana",
+						"sevilla"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
